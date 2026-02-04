@@ -54,7 +54,51 @@
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
+
+  type WireframeImage = {
+    src: string;
+    title: string;
+    description: string;
+  };
+
+  let activeWireframeImage: WireframeImage | null = null;
+  type VisualDesignImage = {
+    src: string;
+    title: string;
+    description: string;
+  };
+  let activeVisualDesignImage: VisualDesignImage | null = null;
+  const visualDesign = project.detail.visualDesign;
+  const visualDesignImages = visualDesign?.images ?? [];
+  const mainVisualDesignImage = visualDesignImages[0];
+
+  const openWireframeModal = (image: WireframeImage) => {
+    activeWireframeImage = image;
+    activeVisualDesignImage = null;
+  };
+
+  const closeWireframeModal = () => {
+    activeWireframeImage = null;
+  };
+
+  const openVisualDesignModal = (image: VisualDesignImage) => {
+    activeVisualDesignImage = image;
+    activeWireframeImage = null;
+  };
+
+  const closeVisualDesignModal = () => {
+    activeVisualDesignImage = null;
+  };
+
+  const handleModalKeydown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape' && (activeWireframeImage || activeVisualDesignImage)) {
+      closeWireframeModal();
+      closeVisualDesignModal();
+    }
+  };
 </script>
+
+<svelte:window on:keydown={handleModalKeydown} />
 
 <svelte:head>
   <title>{project.title} | Portfolio | 叶 真衣</title>
@@ -187,11 +231,9 @@
 
         <div class="flex flex-col gap-3">
           <h3 class="font-body text-base font-medium text-text-primary">プロジェクトの目標</h3>
-          <ul class="flex flex-col gap-2">
+          <ul class="flex flex-col gap-4">
             {#each project.detail.goals.projectGoals as goal, index (index)}
-              <li
-                class="flex items-start gap-3 rounded-xl bg-text-primary px-4 py-3 font-body text-sm leading-relaxed text-border-primary"
-              >
+              <li class="flex items-start gap-2 font-body leading-relaxed">
                 <span class="mt-0.5 shrink-0">
                   <CheckIcon />
                 </span>
@@ -201,26 +243,40 @@
           </ul>
         </div>
 
-        <div class="flex flex-col gap-3">
-          <h3 class="font-body text-base font-medium text-text-primary">User Requirements</h3>
-          <ul class="flex flex-col gap-2 pl-5">
-            {#each project.detail.goals.userRequirements as req, index (index)}
-              <li class="font-body text-sm leading-relaxed text-text-muted list-disc">{req}</li>
-            {/each}
-          </ul>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div
+            class="flex flex-col gap-4 rounded-xl border border-border-primary bg-surface-base p-5"
+          >
+            <span
+              class="inline-flex w-fit items-center border-b border-border-primary px-1 font-body leading-relaxed font-medium text-brand-green"
+            >
+              ユーザーの要件
+            </span>
+            <ul class="space-y-3 pl-5 list-disc marker:text-brand-green">
+              {#each project.detail.goals.userRequirements as req, index (index)}
+                <li class="font-body text-sm leading-relaxed text-text-primary">{req}</li>
+              {/each}
+            </ul>
+          </div>
+
+          <div
+            class="flex flex-col gap-4 rounded-xl border border-border-primary bg-surface-base p-5"
+          >
+            <span
+              class="inline-flex w-fit items-center border-b border-border-primary pb-1 font-body px-1 font-medium text-brand-green"
+            >
+              ビジネスの要件
+            </span>
+            <ul class="space-y-3 pl-5 list-disc marker:text-brand-green">
+              {#each project.detail.goals.businessRequirements as req, index (index)}
+                <li class="font-body text-sm leading-relaxed text-text-primary">{req}</li>
+              {/each}
+            </ul>
+          </div>
         </div>
 
         <div class="flex flex-col gap-3">
-          <h3 class="font-body text-base font-medium text-text-primary">Business Requirements</h3>
-          <ul class="flex flex-col gap-2 pl-5">
-            {#each project.detail.goals.businessRequirements as req, index (index)}
-              <li class="font-body text-sm leading-relaxed text-text-muted list-disc">{req}</li>
-            {/each}
-          </ul>
-        </div>
-
-        <div class="flex flex-col gap-3">
-          <h3 class="font-body text-base font-medium text-text-primary">Constraints</h3>
+          <h3 class="font-body text-base font-medium text-text-primary">制約</h3>
           <ul class="flex flex-col gap-2 pl-5">
             {#each project.detail.goals.constraints as constraint, index (index)}
               <li class="font-body text-sm leading-relaxed text-text-muted list-disc">
@@ -240,25 +296,32 @@
         </h2>
 
         <div class="flex flex-col gap-3">
-          <h3 class="font-body text-base font-medium text-text-primary">Principles</h3>
-          <ul class="flex flex-col gap-2 pl-5">
+          <h3 class="font-body text-base font-medium text-text-primary">UXの原則</h3>
+          <ul class="flex flex-col gap-4">
             {#each project.detail.uxStrategy.principles as principle, index (index)}
-              <li class="font-body text-sm leading-relaxed text-text-muted list-disc">
-                {principle}
+              <li
+                class="flex items-center gap-4 rounded-xl border border-border-primary bg-surface-base px-4 py-3 font-body text-sm leading-relaxed text-brand-green"
+              >
+                <span
+                  class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-green font-body text-xs font-medium text-white"
+                >
+                  {index + 1}
+                </span>
+                <span>{principle}</span>
               </li>
             {/each}
           </ul>
         </div>
 
-        <div class="flex flex-col gap-2">
-          <h3 class="font-body text-base font-medium text-text-primary">Prioritization</h3>
+        <div class="flex flex-col gap-3 bg-surface-base border-l-4 border-brand-green p-4">
+          <h3 class="font-body text-base font-medium text-text-primary">設計のポイント</h3>
           <p class="font-body text-sm leading-relaxed text-text-muted">
             {project.detail.uxStrategy.prioritization}
           </p>
         </div>
 
         <div class="flex flex-col gap-2">
-          <h3 class="font-body text-base font-medium text-text-primary">Design Rationale</h3>
+          <h3 class="font-body text-base font-medium text-text-primary">設計方針</h3>
           <p class="font-body text-sm leading-relaxed text-text-muted">
             {project.detail.uxStrategy.designRationale}
           </p>
@@ -272,16 +335,28 @@
         >
           Info Architecture
         </h2>
-        <p class="font-body text-sm leading-relaxed text-text-muted">
-          {project.detail.infoArchitecture.screenStructure}
-        </p>
-        <p class="font-body text-sm leading-relaxed text-text-muted">
+        <div
+          class="flex flex-col gap-3 bg-surface-base border-l-4 border-brand-green p-4 items-start"
+        >
+          <h3 class="font-body text-base font-medium text-text-primary">画面構造</h3>
+          <p class="font-body leading-relaxed text-text-muted">
+            {project.detail.infoArchitecture.screenStructure}
+          </p>
+          {#if project.detail.infoArchitecture.screenStructureImages?.length}
+            <div class="flex flex-col gap-4">
+              {#each project.detail.infoArchitecture.screenStructureImages as img, index (index)}
+                <img src={img} alt="Info Architecture" class="w-full max-h-fit" />
+              {/each}
+            </div>
+          {/if}
+        </div>
+        <h3 class="font-body text-base font-medium text-text-primary">ユーザーフロー</h3>
+        <p class="font-body leading-relaxed text-text-muted">
           {project.detail.infoArchitecture.flowDescription}
         </p>
-
-        {#if project.detail.infoArchitecture.images}
-          <div class="flex flex-col gap-4">
-            {#each project.detail.infoArchitecture.images as img, index (index)}
+        {#if project.detail.infoArchitecture.flowImages?.length}
+          <div class="grid grid-cols-2 gap-4">
+            {#each project.detail.infoArchitecture.flowImages as img, index (index)}
               <img
                 src={img}
                 alt="Info Architecture"
@@ -332,77 +407,163 @@
           {/if}
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {#each project.detail.wireframe.images as img, index (index)}
-              <img
-                src={img}
-                alt="Wireframe"
-                class="w-full rounded-lg border border-border-primary"
-              />
+              <button
+                type="button"
+                class="group w-full text-left"
+                aria-label={`Open wireframe: ${img.title}`}
+                onclick={() => openWireframeModal(img)}
+              >
+                <div>
+                  <span class="font-body text-sm font-medium text-text-primary">{img.title}</span>
+                  <span
+                    class="relative block h-[200px] w-full overflow-hidden rounded-lg border border-border-primary bg-surface-base"
+                  >
+                    <img
+                      src={img.src}
+                      alt={img.title}
+                      class="h-full w-full object-cover object-top-left transition-transform duration-200 group-hover:scale-110"
+                    />
+                    <span
+                      class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/40 font-body text-sm text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                    >
+                      拡大表示
+                    </span>
+                  </span>
+                </div>
+              </button>
             {/each}
           </div>
         </section>
       {/if}
 
       <!-- Visual Design -->
-      {#if project.detail.visualDesign}
+      {#if visualDesign}
         <section id="visual-design" class="flex flex-col gap-4 scroll-mt-20">
           <h2
             class="font-display text-2xl font-normal text-text-primary border-b border-border-primary pb-2"
           >
             Visual Design
           </h2>
-          {#if project.detail.visualDesign.description}
+          {#if visualDesign.description}
             <p class="font-body text-sm leading-relaxed text-text-muted">
-              {project.detail.visualDesign.description}
+              {visualDesign.description}
             </p>
           {/if}
 
-          {#if project.detail.visualDesign.colorPalette}
-            <div class="flex flex-col gap-2">
-              <h3 class="font-body text-base font-medium text-text-primary">Color Palette</h3>
-              <div class="flex gap-3">
-                <div class="flex flex-col gap-1 items-center">
-                  <div
-                    class="h-12 w-12 rounded-lg border border-border-primary"
-                    style="background-color: {project.detail.visualDesign.colorPalette
-                      .primaryColor}"
-                  ></div>
-                  <span class="font-mono text-xs text-text-muted"
-                    >{project.detail.visualDesign.colorPalette.primaryColor}</span
+          {#if visualDesignImages.length && mainVisualDesignImage}
+            <div class="flex flex-col gap-4">
+              <p class="font-body text-sm font-medium text-text-primary">主要画面</p>
+              <button
+                type="button"
+                class="group w-full text-left"
+                aria-label={`Open visual design: ${mainVisualDesignImage.title}`}
+                onclick={() => openVisualDesignModal(mainVisualDesignImage)}
+              >
+                <span class="block font-body text-xs font-medium text-text-primary">
+                  {mainVisualDesignImage.title}
+                </span>
+                <span
+                  class="relative mt-2 block overflow-hidden w-full rounded-lg border border-border-primary bg-surface-base"
+                >
+                  <img
+                    src={mainVisualDesignImage.src}
+                    alt={mainVisualDesignImage.title}
+                    class="h-auto w-full transition-transform duration-200 bg-cover bg-center group-hover:scale-[1.01]"
+                  />
+                  <span
+                    class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/40 font-body text-sm text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
                   >
-                </div>
-                <div class="flex flex-col gap-1 items-center">
-                  <div
-                    class="h-12 w-12 rounded-lg border border-border-primary"
-                    style="background-color: {project.detail.visualDesign.colorPalette.accentColor}"
-                  ></div>
-                  <span class="font-mono text-xs text-text-muted"
-                    >{project.detail.visualDesign.colorPalette.accentColor}</span
-                  >
-                </div>
-                {#if project.detail.visualDesign.colorPalette.other}
-                  {#each project.detail.visualDesign.colorPalette.other as color, index (index)}
-                    <div class="flex flex-col gap-1 items-center">
-                      <div
-                        class="h-12 w-12 rounded-lg border border-border-primary"
-                        style="background-color: {color}"
-                      ></div>
-                      <span class="font-mono text-xs text-text-muted">{color}</span>
-                    </div>
+                    拡大表示
+                  </span>
+                </span>
+              </button>
+              {#if visualDesignImages.length > 1}
+                <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                  {#each visualDesignImages.slice(1) as img, index (index)}
+                    <button
+                      type="button"
+                      class="group w-full text-left"
+                      aria-label={`Open visual design: ${img.title}`}
+                      onclick={() => openVisualDesignModal(img)}
+                    >
+                      <span class="block font-body text-xs font-medium text-text-primary">
+                        {img.title}
+                      </span>
+                      <span
+                        class="relative mt-2 block overflow-hidden rounded-lg min-h-[140px] border border-border-primary bg-surface-base"
+                      >
+                        <img
+                          src={img.src}
+                          alt={img.title}
+                          class="h-full w-full object-cover object-center transition-transform duration-200 group-hover:scale-[1.02]"
+                        />
+                        <span
+                          class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/40 font-body text-sm text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                        >
+                          拡大表示
+                        </span>
+                      </span>
+                    </button>
                   {/each}
-                {/if}
-              </div>
+                </div>
+              {/if}
             </div>
           {/if}
 
-          <div class="flex flex-col gap-4">
-            {#each project.detail.visualDesign.images as img, index (index)}
-              <img
-                src={img}
-                alt="Visual Design"
-                class="w-full rounded-lg border border-border-primary"
-              />
-            {/each}
-          </div>
+          {#if visualDesign.colorPalette}
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div
+                class="grid grid-cols-1 items-start gap-4 rounded-xl border border-border-primary bg-surface-base px-4 py-4"
+              >
+                <div
+                  class="h-12 w-12 rounded-lg border border-border-primary"
+                  style="background-color: {visualDesign.colorPalette.primaryColor}"
+                ></div>
+                <div class="flex flex-col gap-1">
+                  <span class="font-body text-sm font-medium text-text-primary">
+                    Primary Color
+                  </span>
+                  <span class="font-body text-xs text-text-muted">主要なアクション・強調色</span>
+                </div>
+              </div>
+
+              <div
+                class="grid grid-cols-1 items-start gap-4 rounded-xl border border-border-primary bg-surface-base px-4 py-4"
+              >
+                <div
+                  class="h-12 w-12 rounded-lg border border-border-primary"
+                  style="background-color: {visualDesign.colorPalette.accentColor}"
+                ></div>
+                <div class="flex flex-col gap-1">
+                  <span class="font-body text-sm font-medium text-text-primary">
+                    Accent Color
+                  </span>
+                  <span class="font-body text-xs text-text-muted">補助的な要素</span>
+                </div>
+              </div>
+
+              <div
+                class="grid grid-cols-1 items-start gap-4 rounded-xl border border-border-primary bg-surface-base px-4 py-4"
+              >
+                <div class="flex items-center gap-2">
+                  <div
+                    class="h-12 w-12 rounded-lg border border-border-primary"
+                    style="background-color: {visualDesign.colorPalette.other?.[0]}"
+                  ></div>
+                  <div
+                    class="h-12 w-12 rounded-lg border border-border-primary"
+                    style="background-color: {visualDesign.colorPalette.other?.[1]}"
+                  ></div>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <span class="font-body text-sm font-medium text-text-primary">Other</span>
+                  <span class="font-body text-xs text-text-muted">
+                    背景/ボーダー/システム表示など
+                  </span>
+                </div>
+              </div>
+            </div>
+          {/if}
         </section>
       {/if}
 
@@ -494,4 +655,92 @@
       </a>
     </div>
   </div>
+
+  {#if activeWireframeImage}
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+      <button
+        type="button"
+        class="absolute inset-0"
+        aria-label="Close modal"
+        onclick={closeWireframeModal}
+      ></button>
+      <div
+        class="relative z-10 w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-4 shadow-lg sm:p-6"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Wireframe preview"
+        tabindex="-1"
+      >
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex flex-col gap-1">
+            <h3 class="font-body text-lg font-medium text-text-primary">
+              {activeWireframeImage.title}
+            </h3>
+            <p class="font-body text-sm leading-relaxed text-text-muted">
+              {activeWireframeImage.description}
+            </p>
+          </div>
+          <button
+            type="button"
+            class="rounded-md border border-border-primary px-3 py-1 text-sm text-text-muted hover:text-text-primary"
+            aria-label="Close modal"
+            onclick={closeWireframeModal}
+          >
+            Close
+          </button>
+        </div>
+        <div class="mt-4 overflow-hidden rounded-lg border border-border-primary bg-surface-base">
+          <img
+            src={activeWireframeImage.src}
+            alt={activeWireframeImage.title}
+            class="h-auto w-full"
+          />
+        </div>
+      </div>
+    </div>
+  {/if}
+
+  {#if activeVisualDesignImage}
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+      <button
+        type="button"
+        class="absolute inset-0"
+        aria-label="Close modal"
+        onclick={closeVisualDesignModal}
+      ></button>
+      <div
+        class="relative z-10 w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-4 shadow-lg sm:p-6"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Visual design preview"
+        tabindex="-1"
+      >
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex flex-col gap-1">
+            <h3 class="font-body text-lg font-medium text-text-primary">
+              {activeVisualDesignImage.title}
+            </h3>
+            <p class="font-body text-sm leading-relaxed text-text-muted">
+              {activeVisualDesignImage.description}
+            </p>
+          </div>
+          <button
+            type="button"
+            class="rounded-md border border-border-primary px-3 py-1 text-sm text-text-muted hover:text-text-primary"
+            aria-label="Close modal"
+            onclick={closeVisualDesignModal}
+          >
+            Close
+          </button>
+        </div>
+        <div class="mt-4 overflow-hidden rounded-lg border border-border-primary bg-surface-base">
+          <img
+            src={activeVisualDesignImage.src}
+            alt={activeVisualDesignImage.title}
+            class="h-auto w-full"
+          />
+        </div>
+      </div>
+    </div>
+  {/if}
 </div>

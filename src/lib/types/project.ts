@@ -50,7 +50,8 @@ export interface Project {
     infoArchitecture: {
       screenStructure: string;
       flowDescription: string;
-      images?: string[]; // サイトマップ、画面遷移図など
+      screenStructureImages?: string[]; // 画面構造図など
+      flowImages?: string[]; // サイトマップ、画面遷移図など
     };
 
     // Use Cases / User Flow
@@ -63,13 +64,21 @@ export interface Project {
 
     // Wireframe
     wireframe?: {
-      images: string[];
+      images: Array<{
+        src: string;
+        title: string;
+        description: string;
+      }>;
       description?: string;
     };
 
     // Visual Design
     visualDesign?: {
-      images: string[];
+      images: Array<{
+        src: string;
+        title: string;
+        description: string;
+      }>;
       colorPalette?: {
         primaryColor: string;
         accentColor: string;

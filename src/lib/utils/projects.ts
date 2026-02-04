@@ -78,7 +78,8 @@ export const projectsList: Project[] = [
           'トップページを起点に、利用目的別の導線を明確化。サービス情報・会社情報・採用情報の境界を整理し、3クリック以内で必要情報に到達する構造とした。',
         flowDescription:
           'トップページで利用目的を選択 → 関連情報を集約した中間ページへ遷移 → 詳細情報へ到達、というシンプルで迷いの少ない導線を設計。',
-        images: ['/project/real-estate/sitemap.png', '/project/real-estate/userflow.png'],
+        screenStructureImages: ['/project/real-estate/InfoArchitectureUI.svg'],
+        flowImages: ['/project/real-estate/sitemap.png', '/project/real-estate/userflow.png'],
       },
 
       useCases: {
@@ -120,17 +121,52 @@ export const projectsList: Project[] = [
 
       wireframe: {
         images: [
-          '/project/real-estate/wireframe-top.png',
-          '/project/real-estate/wireframe-service.png',
+          {
+            src: '/project/real-estate/PIM-hero.webp',
+            title: 'トップページ ヒーロー',
+            description: 'ファーストビューの構成と主要導線を整理したワイヤーフレーム。',
+          },
+          {
+            src: '/project/real-estate/PIM-global-menu.webp',
+            title: 'グローバルメニュー',
+            description: '主要カテゴリへの導線を一目で把握できるナビ設計。',
+          },
+          {
+            src: '/project/real-estate/PIM-news.webp',
+            title: '重要なお知らせエリア',
+            description: '通知の優先度が伝わる情報配置のワイヤーフレーム。',
+          },
+          {
+            src: '/project/real-estate/PIM-real-estate-section.webp',
+            title: 'サービス導線セクション',
+            description: '利用目的別の導線が分かるカード配置を検討。',
+          },
         ],
         description: 'トップページと主要サービスページのワイヤーフレーム',
       },
 
       visualDesign: {
         images: [
-          '/project/real-estate/visual-top.png',
-          '/project/real-estate/visual-service.png',
-          '/project/real-estate/visual-about.png',
+          {
+            src: '/project/real-estate/PIM-design-top.webp',
+            title: 'トップページ',
+            description: 'ブランドイメージを重視し、動画を取り入れたメインビジュアル構成。',
+          },
+          {
+            src: '/project/real-estate/PIM-design-news.webp',
+            title: 'お知らせ',
+            description: '見慣れたカードレイアウトで情報を整理。',
+          },
+          {
+            src: '/project/real-estate/PIM-design-global-menu.webp',
+            title: 'グローバルナビゲーション',
+            description: 'ナビゲーションで利用目的別に遷移できるようにするための構成。',
+          },
+          {
+            src: '/project/real-estate/PIM-design-real-estate-section.webp',
+            title: '主要コンテンツの紹介',
+            description: 'コンテンツを見出し表示し、整理。ユーザーが迷わないようにするための構成。',
+          },
         ],
         colorPalette: {
           primaryColor: '#152B58',
@@ -242,7 +278,7 @@ export const projectsList: Project[] = [
           'お知らせや重要事項を読んで欲しい意図があったため、主要アクション（勤怠・経費）へ1クリックアクセスではなく、トップページ / ナビゲーションに配置。2アクションで遷移する構成とした。',
         flowDescription:
           'トップページで利用目的を選択 → 入力・確認したい情報ページへ遷移 → 目的を到達、というシンプルで迷いの少ない導線を設計。',
-        images: [
+        flowImages: [
           '/project/attendance-expense/sitemap.png',
           '/project/attendance-expense/userflow.png',
         ],
@@ -288,17 +324,37 @@ export const projectsList: Project[] = [
 
       wireframe: {
         images: [
-          '/project/attendance-expense/wireframe-dashboard.png',
-          '/project/attendance-expense/wireframe-form.png',
+          {
+            src: '/project/attendance-expense/wireframe-dashboard.png',
+            title: 'ダッシュボード',
+            description: '承認状況と主要アクションを集約した画面構成。',
+          },
+          {
+            src: '/project/attendance-expense/wireframe-form.png',
+            title: '申請フォーム',
+            description: '入力ミスを防ぐための情報配置と導線整理。',
+          },
         ],
         description: 'ダッシュボードと申請フォームのワイヤーフレーム',
       },
 
       visualDesign: {
         images: [
-          '/project/attendance-expense/visual-dashboard.png',
-          '/project/attendance-expense/visual-attendance.png',
-          '/project/attendance-expense/visual-expense.png',
+          {
+            src: '/project/attendance-expense/visual-dashboard.png',
+            title: 'ダッシュボード',
+            description: 'タスク状況が一目で分かる情報整理。',
+          },
+          {
+            src: '/project/attendance-expense/visual-attendance.png',
+            title: '勤怠管理',
+            description: '入力しやすさを意識したカレンダーUI。',
+          },
+          {
+            src: '/project/attendance-expense/visual-expense.png',
+            title: '経費精算',
+            description: '申請フローを迷わず進める画面構成。',
+          },
         ],
         colorPalette: {
           primaryColor: '#2563eb',
@@ -411,7 +467,7 @@ export const projectsList: Project[] = [
           '書籍を探したいユーザーが迷わず目的の作品に到達できるよう、「検索を起点とした画面構造」と「探索の選択肢を段階的に提示する情報設計」を行った。画面上部には常に検索窓を配置し、タイトル・著者名・レーベル・カテゴリといった複数の切り口から、ユーザーが思い立った瞬間に検索行動へ移れる構造とした。',
         flowDescription:
           '書籍を探したいユーザーが、迷うことなく目的の作品に到達できるよう、検索を起点とした直線的かつ分岐可能なユーザーフロー」を設計した。',
-        images: ['/project/publish-site/sitemap.png', '/project/publish-site/userflow.png'],
+        flowImages: ['/project/publish-site/sitemap.png', '/project/publish-site/userflow.png'],
       },
 
       useCases: {
@@ -437,17 +493,37 @@ export const projectsList: Project[] = [
 
       wireframe: {
         images: [
-          '/project/publish-site/wireframe-search.png',
-          '/project/publish-site/wireframe-detail.png',
+          {
+            src: '/project/publish-site/wireframe-search.png',
+            title: '検索ページ',
+            description: '複数条件で探しやすい検索UIの構成。',
+          },
+          {
+            src: '/project/publish-site/wireframe-detail.png',
+            title: '書籍詳細ページ',
+            description: '関連導線と情報優先度を整理した詳細画面。',
+          },
         ],
         description: '検索ページと書籍詳細ページのワイヤーフレーム',
       },
 
       visualDesign: {
         images: [
-          '/project/publish-site/visual-top.png',
-          '/project/publish-site/visual-search.png',
-          '/project/publish-site/visual-label.png',
+          {
+            src: '/project/publish-site/visual-top.png',
+            title: 'トップページ',
+            description: '検索起点で回遊できるヒーロー設計。',
+          },
+          {
+            src: '/project/publish-site/visual-search.png',
+            title: '検索ページ',
+            description: '条件選択と結果の見やすさを両立。',
+          },
+          {
+            src: '/project/publish-site/visual-label.png',
+            title: 'レーベルページ',
+            description: '世界観を保ちながら情報を整理。',
+          },
         ],
         colorPalette: {
           primaryColor: '#F29F05',
