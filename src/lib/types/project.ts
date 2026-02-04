@@ -5,19 +5,89 @@ export type ProjectCategorySecondary = 'UI/UX / Frontend' | 'UI/UX / Frontend / 
 export type ProjectId = 'real-estate' | 'attendance-expense' | 'publish-site';
 
 export interface Project {
-  id: ProjectId;
+  // 基本情報（一覧表示用）
+  id: string;
   title: string;
   summary: string;
   period: string;
-  categoryPrimary: ProjectCategoryPrimary;
-  categorySecondary: ProjectCategorySecondary;
+  categoryPrimary: string;
+  categorySecondary: string;
   image: string;
-  /** 詳細ページ用: 本文段落 */
-  description: string[];
-  /** 詳細ページ用: 担当役割（任意） */
-  role?: string;
-  /** 詳細ページ用: 技術スタック（任意） */
-  tech?: string[];
-  /** 詳細ページ用: 関連URL（任意） */
-  url?: string;
+
+  // 詳細ページ用の構造化データ
+  detail: {
+    // Overview
+    overview: {
+      summary: string;
+      role: string;
+      timeline: string;
+      team: string;
+    };
+
+    // Background & Issues
+    background: {
+      context: string;
+      userProblems: string[];
+      existingIssues: string[];
+    };
+
+    // Goals & Requirements
+    goals: {
+      projectGoals: string[];
+      userRequirements: string[];
+      businessRequirements: string[];
+      constraints: string[];
+    };
+
+    // UX Strategy
+    uxStrategy: {
+      principles: string[];
+      prioritization: string;
+      designRationale: string;
+    };
+
+    // Info Architecture
+    infoArchitecture: {
+      screenStructure: string;
+      flowDescription: string;
+      images?: string[]; // サイトマップ、画面遷移図など
+    };
+
+    // Use Cases / User Flow
+    useCases: {
+      scenarios: Array<{
+        title: string;
+        steps: string[];
+      }>;
+    };
+
+    // Wireframe
+    wireframe?: {
+      images: string[];
+      description?: string;
+    };
+
+    // Visual Design
+    visualDesign?: {
+      images: string[];
+      colorPalette?: {
+        primaryColor: string;
+        accentColor: string;
+        other?: string[];
+      };
+      description?: string;
+    };
+
+    // UI Components / Design System
+    uiComponents?: {
+      images: string[];
+      description?: string;
+    };
+
+    // Outcome
+    outcome: {
+      results: string[];
+      learnings: string[];
+    };
+  };
 }

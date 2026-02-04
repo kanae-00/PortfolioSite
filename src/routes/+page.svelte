@@ -1,11 +1,8 @@
 <script lang="ts">
-  import { projects } from '$lib/utils/projects';
+  import { projectsList } from '$lib/utils/projects';
   import { aboutCards } from '$lib/utils/aboutCards';
   import CalendarIcon from '$lib/component/icon/CalendarIcon.svelte';
   import type { AboutCard } from '$lib/types/about';
-  import type { Project } from '$lib/types/project';
-
-  const projectsList: Project[] = projects;
 
   let activeAboutIndex = 0;
   const aboutTotal = aboutCards.length;
@@ -220,6 +217,7 @@
           <a
             href="/projects/{project.id}"
             class="projectcard flex flex-col overflow-hidden rounded-2xl border border-border-primary bg-white transition-opacity hover:opacity-90"
+            data-sveltekit-preload-data="hover"
           >
             <div
               class="relative aspect-[303/240] w-full overflow-hidden rounded-t-2xl bg-[#697065]"
