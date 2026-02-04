@@ -13,11 +13,11 @@ export const aboutCards: readonly AboutCard[] = [
       '今の仕事につながる「点」だったと感じています。',
       'この About セクションでは、',
       'その点がどのようにつながってきたのかを、',
-      '時系列でお話しします。'
+      '時系列でお話しします。',
     ],
     illustrationKey: 'about-timeline-1',
     illustrationPath: '/profile/about-me.svg',
-    illustrationAlt: 'キャリアのはじまりを表現したイラストカード'
+    illustrationAlt: 'キャリアのはじまりを表現したイラストカード',
   },
   {
     id: '02',
@@ -27,11 +27,11 @@ export const aboutCards: readonly AboutCard[] = [
       'サービス全体の情報設計やユーザーフローを考えるうえで大きな土台になりました。',
       '図面を引くように、',
       'ユーザー体験の導線を組み立てていくプロセスに惹かれ、',
-      'IT へとキャリアチェンジするきっかけとなりました。'
+      'IT へとキャリアチェンジするきっかけとなりました。',
     ],
     illustrationKey: 'about-timeline-2',
     illustrationPath: '/profile/carrier-cgdesigner.svg',
-    illustrationAlt: '建築図面からワイヤーフレームへとつながるイラストカード'
+    illustrationAlt: '建築図面からワイヤーフレームへとつながるイラストカード',
   },
   {
     id: '03',
@@ -40,11 +40,11 @@ export const aboutCards: readonly AboutCard[] = [
       'プロジェクトマネジメントに関わった期間は、',
       'チームやステークホルダーとの「対話」の重要性を学ぶ時間でした。',
       'ビジネス要件とユーザー価値のバランスをとりながら、',
-      '最終的なアウトプットの質を高めていく視点を養いました。'
+      '最終的なアウトプットの質を高めていく視点を養いました。',
     ],
     illustrationKey: 'about-timeline-3',
     illustrationPath: '/profile/carrier-pm.svg',
-    illustrationAlt: 'プロジェクトチームとタスクを表現したイラストカード'
+    illustrationAlt: 'プロジェクトチームとタスクを表現したイラストカード',
   },
   {
     id: '04',
@@ -53,11 +53,11 @@ export const aboutCards: readonly AboutCard[] = [
       'マネジメントだけでなく、',
       '自ら手を動かして実装することにもこだわってきました。',
       'デザインとフロントエンドの両側から課題に向き合うことで、',
-      '体験の細部まで責任を持って作り込むことを大切にしています。'
+      '体験の細部まで責任を持って作り込むことを大切にしています。',
     ],
     illustrationKey: 'about-timeline-4',
     illustrationPath: '/profile/carrier-engineer.svg',
-    illustrationAlt: 'デザインとコードがつながるイラストカード'
+    illustrationAlt: 'デザインとコードがつながるイラストカード',
   },
   {
     id: '05',
@@ -65,11 +65,10 @@ export const aboutCards: readonly AboutCard[] = [
     paragraphs: [
       'これまでの経験で得た「構造化」「対話」「実装力」を活かし、',
       'プロダクトの価値を長期的に育てていけるポジションで、',
-      'ユーザーとビジネスの両方に貢献していきたいと考えています。'
+      'ユーザーとビジネスの両方に貢献していきたいと考えています。',
     ],
     illustrationKey: 'about-timeline-5',
     illustrationPath: '/profile/carrier-future.svg',
-    illustrationAlt: '未来へ続くロードマップのイラストカード'
-  }
+    illustrationAlt: '未来へ続くロードマップのイラストカード',
+  },
 ] as const;
-

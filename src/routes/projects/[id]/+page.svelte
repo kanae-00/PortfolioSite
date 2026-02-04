@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import type { PageData } from './$types';
   import PeopleIcon from '$lib/component/icon/PeopleIcon.svelte';
-
+  import WatchIcon from '$lib/component/icon/watchIcon.svelte';
   export let data: PageData;
   const project = data.project;
 
@@ -119,7 +119,10 @@
             class="flex flex-col gap-2 rounded-lg border border-border-primary bg-surface-base px-4 py-3 sm:px-5 sm:py-4"
             role="listitem"
           >
-            <span class="font-body text-sm font-medium text-text-primary">Timeline</span>
+            <div class="flex items-center gap-2">
+              <WatchIcon />
+              <span class="font-body text-sm font-medium text-text-primary">Timeline</span>
+            </div>
             <span class="font-body text-sm leading-relaxed text-text-muted">
               {project.detail.overview.timeline}
             </span>
@@ -128,7 +131,10 @@
             class="flex flex-col gap-2 rounded-lg border border-border-primary bg-surface-base px-4 py-3 sm:px-5 sm:py-4"
             role="listitem"
           >
-            <span class="font-body text-sm font-medium text-text-primary">Team</span>
+            <div class="flex items-center gap-2">
+              <PeopleIcon />
+              <span class="font-body text-sm font-medium text-text-primary">Team</span>
+            </div>
             <span class="font-body text-sm leading-relaxed text-text-muted">
               {project.detail.overview.team}
             </span>

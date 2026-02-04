@@ -12,4 +12,3 @@ export interface AboutCard {
   /** アクセシビリティ用のイラスト説明 */
   illustrationAlt: string;
 }
-

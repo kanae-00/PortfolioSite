@@ -1,3 +1,5 @@
+/// <reference types="@sveltejs/kit" />
+/// <reference types="svelte/elements" />
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 import type { Component } from 'svelte';

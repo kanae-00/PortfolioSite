@@ -4,5 +4,5 @@ export default {
   overrides: [{ files: '*.svelte', options: { parser: 'svelte' } }],
   singleQuote: true,
   tabWidth: 2,
-  printWidth: 100
+  printWidth: 100,
 };
