@@ -3,6 +3,7 @@
   import type { PageData } from './$types';
   import PeopleIcon from '$lib/component/icon/PeopleIcon.svelte';
   import WatchIcon from '$lib/component/icon/watchIcon.svelte';
+  import CheckIcon from '$lib/component/icon/CheckIcon.svelte';
   export let data: PageData;
   const project = data.project;
 
@@ -77,7 +78,7 @@
     class="mx-auto flex w-full max-w-[1200px] gap-8 px-4 py-6 sm:px-10 sm:py-8 lg:px-20 lg:py-10"
   >
     <!-- 左側: メインコンテンツ -->
-    <article class="flex-1 flex flex-col gap-12">
+    <article class="flex-1 flex flex-col gap-12 lg:gap-24">
       <!-- ヒーロー画像 -->
       <div class="relative aspect-[941/480] w-full overflow-hidden rounded-2xl bg-[#697065]">
         <img src={project.image} alt={project.title} class="h-full w-full object-cover" />
@@ -153,8 +154,8 @@
           {project.detail.background.context}
         </p>
 
-        <div class="flex flex-col gap-3">
-          <h3 class="font-body text-base font-medium text-text-primary">User Problems</h3>
+        <div class="flex flex-col gap-3 bg-surface-base border-l-4 border-brand-green p-4">
+          <h3 class="font-body text-base font-medium text-text-primary">ユーザーの課題</h3>
           <ul class="flex flex-col gap-2 pl-5">
             {#each project.detail.background.userProblems as problem, index (index)}
               <li class="font-body text-sm leading-relaxed text-text-muted list-disc">{problem}</li>
@@ -163,10 +164,14 @@
         </div>
 
         <div class="flex flex-col gap-3">
-          <h3 class="font-body text-base font-medium text-text-primary">Existing Issues</h3>
-          <ul class="flex flex-col gap-2 pl-5">
+          <h3 class="font-body text-base font-medium text-text-primary">社内の課題</h3>
+          <ul class="grid grid-cols-2 gap-2">
             {#each project.detail.background.existingIssues as issue, index (index)}
-              <li class="font-body text-sm leading-relaxed text-text-muted list-disc">{issue}</li>
+              <li
+                class="rounded-lg border border-border-primary bg-surface-base px-4 py-3 font-body text-sm leading-relaxed text-text-muted"
+              >
+                {issue}
+              </li>
             {/each}
           </ul>
         </div>
@@ -181,10 +186,17 @@
         </h2>
 
         <div class="flex flex-col gap-3">
-          <h3 class="font-body text-base font-medium text-text-primary">Project Goals</h3>
-          <ul class="flex flex-col gap-2 pl-5">
+          <h3 class="font-body text-base font-medium text-text-primary">プロジェクトの目標</h3>
+          <ul class="flex flex-col gap-2">
             {#each project.detail.goals.projectGoals as goal, index (index)}
-              <li class="font-body text-sm leading-relaxed text-text-muted list-disc">{goal}</li>
+              <li
+                class="flex items-start gap-3 rounded-xl bg-text-primary px-4 py-3 font-body text-sm leading-relaxed text-border-primary"
+              >
+                <span class="mt-0.5 shrink-0">
+                  <CheckIcon />
+                </span>
+                <span>{goal}</span>
+              </li>
             {/each}
           </ul>
         </div>
