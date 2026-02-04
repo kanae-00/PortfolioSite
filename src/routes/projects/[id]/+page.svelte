@@ -71,6 +71,21 @@
   const visualDesign = project.detail.visualDesign;
   const visualDesignImages = visualDesign?.images ?? [];
   const mainVisualDesignImage = visualDesignImages[0];
+  const visualDesignColorPalette = visualDesign?.colorPalette;
+  const fallbackColorPalette = {
+    primaryColor: '#0E1829',
+    accentColor: '#4B6333',
+    other: ['#F7F7F0', '#BEC6B9'],
+  };
+  const resolvedColorPalette = visualDesignColorPalette ?? fallbackColorPalette;
+  const resolvedOtherColors = resolvedColorPalette.other ?? fallbackColorPalette.other;
+  const uiComponents = project.detail.uiComponents;
+  const typographyItems = uiComponents?.designSystem?.typography ?? [
+    '見出し: 太字',
+    '本文: レギュラー',
+    '16px 基準スケール',
+  ];
+  const uiComponentSections = uiComponents?.sections ?? [];
 
   const openWireframeModal = (image: WireframeImage) => {
     activeWireframeImage = image;
@@ -245,7 +260,7 @@
 
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div
-            class="flex flex-col gap-4 rounded-xl border border-border-primary bg-surface-base p-5"
+            class="flex flex-col gap-4 rounded-xl border border-border-primary bg-surface-base p-4"
           >
             <span
               class="inline-flex w-fit items-center border-b border-border-primary px-1 font-body leading-relaxed font-medium text-brand-green"
@@ -260,7 +275,7 @@
           </div>
 
           <div
-            class="flex flex-col gap-4 rounded-xl border border-border-primary bg-surface-base p-5"
+            class="flex flex-col gap-4 rounded-xl border border-border-primary bg-surface-base p-4"
           >
             <span
               class="inline-flex w-fit items-center border-b border-border-primary pb-1 font-body px-1 font-medium text-brand-green"
@@ -490,7 +505,7 @@
                         {img.title}
                       </span>
                       <span
-                        class="relative mt-2 block overflow-hidden rounded-lg min-h-[140px] border border-border-primary bg-surface-base"
+                        class="relative mt-2 block overflow-hidden rounded-lg h-[160px] border border-border-primary bg-surface-base"
                       >
                         <img
                           src={img.src}
@@ -568,27 +583,97 @@
       {/if}
 
       <!-- UI Components -->
-      {#if project.detail.uiComponents}
+      {#if uiComponents}
         <section id="ui-components" class="flex flex-col gap-4 scroll-mt-20">
           <h2
             class="font-display text-2xl font-normal text-text-primary border-b border-border-primary pb-2"
           >
             UI Components / Design System
           </h2>
-          {#if project.detail.uiComponents.description}
+
+          {#if uiComponents?.description}
             <p class="font-body text-sm leading-relaxed text-text-muted">
-              {project.detail.uiComponents.description}
+              {uiComponents.description}
             </p>
           {/if}
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {#each project.detail.uiComponents.images as img, index (index)}
-              <img
-                src={img}
-                alt="UI Components"
-                class="w-full rounded-lg border border-border-primary"
-              />
-            {/each}
+          <div class="flex flex-col gap-4">
+            <div class="flex items-center gap-4">
+              <p class="font-body text-sm font-medium text-text-primary">デザインシステム</p>
+            </div>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div
+                class="flex flex-col gap-3 rounded-xl border border-border-primary bg-surface-base p-4"
+              >
+                <h4 class="font-body text-base font-medium text-text-primary">Typography</h4>
+                <ul class="flex flex-col gap-2 font-body text-sm text-text-muted">
+                  {#each typographyItems as item, index (index)}
+                    <li>{item}</li>
+                  {/each}
+                </ul>
+              </div>
+              <div
+                class="flex flex-col gap-3 rounded-xl border border-border-primary bg-surface-base p-4"
+              >
+                <h4 class="font-body text-base font-medium text-text-primary">Color System</h4>
+                <div class="flex items-center gap-2">
+                  <span
+                    class="h-10 w-10 rounded-md border border-border-primary"
+                    style="background-color: {resolvedColorPalette.primaryColor}"
+                  ></span>
+                  <span
+                    class="h-10 w-10 rounded-md border border-border-primary"
+                    style="background-color: {resolvedColorPalette.accentColor}"
+                  ></span>
+                  <span
+                    class="h-10 w-10 rounded-md border border-border-primary"
+                    style="background-color: {resolvedOtherColors[0]}"
+                  ></span>
+                  <span
+                    class="h-10 w-10 rounded-md border border-border-primary"
+                    style="background-color: {resolvedOtherColors[1]}"
+                  ></span>
+                </div>
+                <p class="font-body text-sm text-text-muted">Primary / Accent / Neutral</p>
+              </div>
+              <div
+                class="flex flex-col gap-3 rounded-xl border border-border-primary bg-surface-base p-4"
+              >
+                <h4 class="font-body text-base font-medium text-text-primary">Spacing</h4>
+                <div class="flex flex-col gap-1">
+                  <span class="h-2 w-6 rounded-full bg-text-muted/60"></span>
+                  <span class="h-2 w-10 rounded-full bg-text-muted/60"></span>
+                  <span class="h-2 w-14 rounded-full bg-text-muted/60"></span>
+                  <span class="h-2 w-20 rounded-full bg-text-muted/60"></span>
+                </div>
+                <p class="font-body text-sm text-text-muted">8 / 16 / 24 / 32</p>
+              </div>
+            </div>
           </div>
+          {#if uiComponentSections.length}
+            <div class="flex flex-col gap-4">
+              <p class="font-body text-sm font-medium text-text-primary">コンポーネント</p>
+              {#each uiComponentSections as section, index (index)}
+                <div class="flex flex-col gap-2">
+                  <div
+                    class="overflow-hidden rounded-lg bg-surface-base p-4 grid grid-cols-1 gap-4"
+                  >
+                    <p class="font-body text-sm font-medium text-text-primary pb-2 w-fit">
+                      {section.title}
+                    </p>
+                    <div class="grid grid-cols-1 gap-3">
+                      {#each section.images as image, imageIndex (imageIndex)}
+                        <img
+                          src={image}
+                          alt={section.title}
+                          class="w-full rounded-lg bg-white p-4"
+                        />
+                      {/each}
+                    </div>
+                  </div>
+                </div>
+              {/each}
+            </div>
+          {/if}
         </section>
       {/if}
 
@@ -601,16 +686,23 @@
         </h2>
 
         <div class="flex flex-col gap-3">
-          <h3 class="font-body text-base font-medium text-text-primary">Results</h3>
-          <ul class="flex flex-col gap-2 pl-5">
+          <h3 class="font-body text-base font-medium text-text-primary">成果</h3>
+          <ul class="flex flex-col gap-4">
             {#each project.detail.outcome.results as result, index (index)}
-              <li class="font-body text-sm leading-relaxed text-text-muted list-disc">{result}</li>
+              <li class="flex items-start gap-3">
+                <CheckIcon class="h-4 w-4" />
+                <span class="font-body text-sm leading-relaxed text-text-primary">
+                  {result}
+                </span>
+              </li>
             {/each}
           </ul>
         </div>
 
-        <div class="flex flex-col gap-3">
-          <h3 class="font-body text-base font-medium text-text-primary">Learnings</h3>
+        <h3 class="font-body text-base font-medium text-text-primary">学びと改善点</h3>
+        <div
+          class="flex flex-col gap-4 rounded-xl border border-border-primary bg-surface-base p-4"
+        >
           <ul class="flex flex-col gap-2 pl-5">
             {#each project.detail.outcome.learnings as learning, index (index)}
               <li class="font-body text-sm leading-relaxed text-text-muted list-disc">

@@ -89,7 +89,13 @@ export interface Project {
 
     // UI Components / Design System
     uiComponents?: {
-      images: string[];
+      designSystem?: {
+        typography: string[];
+      };
+      sections: Array<{
+        title: string;
+        images: string[];
+      }>;
       description?: string;
     };
 

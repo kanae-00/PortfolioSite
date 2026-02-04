@@ -177,10 +177,22 @@ export const projectsList: Project[] = [
       },
 
       uiComponents: {
-        images: [
-          '/project/real-estate/components-buttons.png',
-          '/project/real-estate/components-cards.png',
-          '/project/real-estate/components-forms.png',
+        designSystem: {
+          typography: [
+            '見出し: 太字',
+            'フォント: Zen Kaku Gothic New / Zen Old Mincho',
+            '16px 基準スケール',
+          ],
+        },
+        sections: [
+          { title: 'Buttons', images: ['/project/real-estate/button-components.webp'] },
+          {
+            title: 'Cards',
+            images: [
+              '/project/real-estate/card-components-2.webp',
+              '/project/real-estate/card-components.webp',
+            ],
+          },
         ],
         description: '再利用可能なUIコンポーネント設計',
       },
@@ -207,7 +219,7 @@ export const projectsList: Project[] = [
     summary: '煩雑な手作業を自動化し、従業員の入力負担軽減と総務の処理時間を大幅に削減',
     period: '2024年3月 - 2025年4月',
     categoryPrimary: '業務システム',
-    categorySecondary: 'UI/UX / Frontend / PM',
+    categorySecondary: 'UI/UX / Frontend',
     image: '/project/attendance-expense.webp',
 
     // 詳細ページ用データ
@@ -365,10 +377,13 @@ export const projectsList: Project[] = [
       },
 
       uiComponents: {
-        images: [
-          '/project/attendance-expense/components-forms.png',
-          '/project/attendance-expense/components-status.png',
-          '/project/attendance-expense/components-tables.png',
+        designSystem: {
+          typography: ['見出し: 太字', '本文: レギュラー', '16px 基準スケール'],
+        },
+        sections: [
+          { title: 'Forms', images: ['/project/attendance-expense/components-forms.png'] },
+          { title: 'Status', images: ['/project/attendance-expense/components-status.png'] },
+          { title: 'Tables', images: ['/project/attendance-expense/components-tables.png'] },
         ],
         description: '業務システム向けUIコンポーネント設計',
       },
@@ -397,7 +412,7 @@ export const projectsList: Project[] = [
       '複数サーバーに分散していたWordPress環境の統合と、ユーザー体験に直結する共通領域を刷新した',
     period: '2023年8月 - 2024年4月',
     categoryPrimary: 'WEBシステム',
-    categorySecondary: 'UI/UX / Frontend',
+    categorySecondary: 'UI/UX / Frontend / PM',
     image: '/project/publish-site.webp',
 
     // 詳細ページ用データ
@@ -534,10 +549,13 @@ export const projectsList: Project[] = [
       },
 
       uiComponents: {
-        images: [
-          '/project/publish-site/components-search.png',
-          '/project/publish-site/components-cards.png',
-          '/project/publish-site/components-nav.png',
+        designSystem: {
+          typography: ['見出し: 太字', '本文: レギュラー', '16px 基準スケール'],
+        },
+        sections: [
+          { title: 'Search', images: ['/project/publish-site/components-search.png'] },
+          { title: 'Cards', images: ['/project/publish-site/components-cards.png'] },
+          { title: 'Navigation', images: ['/project/publish-site/components-nav.png'] },
         ],
         description: '出版サイト向けUIコンポーネント設計',
       },
