@@ -407,15 +407,25 @@
           {project.detail.infoArchitecture.flowDescription}
         </p>
         {#if project.detail.infoArchitecture.flowImages?.length}
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div
+            class={`grid gap-4 rounded-lg border border-border-primary bg-surface-base ${
+              project.detail.infoArchitecture.flowImages?.length >= 2
+                ? 'grid-cols-1'
+                : 'grid-cols-2 xs:grid-cols-1'
+            }`}
+          >
             {#each project.detail.infoArchitecture.flowImages as img, index (index)}
-              <div
-                class="flex flex-col gap-2 rounded-lg border border-border-primary bg-surface-base p-4"
-              >
-                <p class="font-body text-sm font-medium text-text-primary">{img.title}</p>
+              <div class="flex flex-col gap-2 p-4">
+                <p class="font-body text-sm font-medium text-text-primary whitespace-pre-line">
+                  {img.title}
+                </p>
                 <button
                   type="button"
-                  class="group relative overflow-hidden rounded-lg border border-border-primary bg-white"
+                  class={`group relative overflow-hidden rounded-lg border border-border-primary bg-white ${
+                    project.detail.infoArchitecture.flowImages?.length >= 2
+                      ? 'grid-cols1 h-[400px]'
+                      : 'h-[200px]'
+                  }`}
                   aria-label={`Open info architecture: ${img.title}`}
                   onclick={() => openInfoArchitectureModal(img)}
                 >
@@ -455,6 +465,28 @@
             </div>
           {/each}
         </div>
+        {#if project.detail.useCases.flowImages?.length}
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {#each project.detail.useCases.flowImages as image, index (index)}
+              <div class="flex flex-col gap-2">
+                <p class="font-body text-sm font-medium text-text-primary">{image.title}</p>
+                <button
+                  type="button"
+                  class="group relative overflow-hidden rounded-lg border border-border-primary bg-white"
+                  aria-label={`Open info architecture: ${image.title}`}
+                  onclick={() => openInfoArchitectureModal(image)}
+                >
+                  <img src={image.src} alt={image.title} class="h-auto w-full" />
+                  <span
+                    class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/40 font-body text-sm text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                  >
+                    拡大表示
+                  </span>
+                </button>
+              </div>
+            {/each}
+          </div>
+        {/if}
       </section>
 
       <!-- Wireframe -->
@@ -528,7 +560,7 @@
                   {mainVisualDesignImage.title}
                 </span>
                 <span
-                  class="relative mt-2 block overflow-hidden w-full rounded-lg border border-border-primary bg-surface-base"
+                  class="relative mt-2 block overflow-hidden max-h-[400px] rounded-lg border border-border-primary bg-surface-base"
                 >
                   <img
                     src={mainVisualDesignImage.src}
@@ -705,7 +737,7 @@
               {#each uiComponentSections as section, index (index)}
                 <div class="flex flex-col gap-2">
                   <div
-                    class="overflow-hidden rounded-lg bg-surface-base p-4 grid grid-cols-1 gap-4"
+                    class="overflow-hidden rounded-lg bg-surface-base p-4 grid grid-cols-1 gap-2"
                   >
                     <p class="font-body text-sm font-medium text-text-primary pb-2 w-fit">
                       {section.title}
@@ -840,7 +872,7 @@
           <img
             src={activeWireframeImage.src}
             alt={activeWireframeImage.title}
-            class="h-auto w-full"
+            class="h-auto w-full bg-cover bg-top"
           />
         </div>
       </div>

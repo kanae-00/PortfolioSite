@@ -249,12 +249,12 @@
             </div>
             <div class="flex flex-col gap-2 p-4">
               <h3
-                class="font-body text-lg font-medium leading-snug tracking-[0.35px] text-text-primary sm:text-[20px] sm:leading-[35px]"
+                class="font-body text-lg font-medium leading-snug tracking-[0.35px] text-text-primary sm:text-[20px] sm:leading-[35px] truncate"
               >
                 {project.title}
               </h3>
               <p
-                class="font-body text-sm leading-relaxed tracking-[0.41px] text-text-muted sm:text-[14px] sm:leading-[24.5px] truncate"
+                class="font-body text-sm leading-relaxed tracking-[0.41px] text-text-muted sm:text-[14px] sm:leading-[24.5px] h-[80px] overflow-hidden"
               >
                 {project.summary}
               </p>

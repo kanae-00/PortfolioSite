@@ -4,7 +4,7 @@ export const projectsList: Project[] = [
   {
     // 基本情報
     id: 'real-estate-site-renewal',
-    title: '不動産業界コーポレートサイトリニューアル',
+    title: '不動産業界サイトリニューアル',
     summary:
       '利用目的を起点とした情報設計と導線の再構築を行い、可読性の向上・サービス理解を促進した',
     period: '2025年1月 - 2025年7月',
@@ -83,10 +83,6 @@ export const projectsList: Project[] = [
             src: '/project/real-estate/InfoArchitectureUI.svg',
             title: 'グローバルメニュー',
           },
-        ],
-        flowImages: [
-          { src: '/project/real-estate/sitemap.png', title: 'サイトマップ' },
-          { src: '/project/real-estate/userflow.png', title: 'ユーザーフロー' },
         ],
       },
 
@@ -224,7 +220,7 @@ export const projectsList: Project[] = [
   {
     // 基本情報
     id: 'attendance-expense-system',
-    title: '勤怠・経費管理システム開発(社内DX)',
+    title: '勤怠経費管理システム(社内DX)',
     summary: '煩雑な手作業を自動化し、従業員の入力負担軽減と総務の処理時間を大幅に削減',
     period: '2024年3月 - 2025年4月',
     categoryPrimary: '業務システム',
@@ -300,7 +296,10 @@ export const projectsList: Project[] = [
           'お知らせや重要事項を読んで欲しい意図があったため、主要アクション（勤怠・経費）へ1クリックアクセスではなく、トップページ / ナビゲーションに配置。2アクションで遷移する構成とした。',
         flowDescription:
           'トップページまたはサイドナビで利用目的を選択 → 入力・確認したいページへ遷移 → 目的を到達、というシンプルで迷いの少ない導線を設計。',
-        flowImages: [{ src: '/project/attendance-expense/info.webp', title: '情報設計' }],
+        flowImages: [
+          { src: '/project/attendance-expense/info.webp', title: 'サイドナビゲーション' },
+          { src: '/project/attendance-expense/info-top.webp', title: 'トップページ一部セクション' },
+        ],
       },
 
       useCases: {
@@ -339,40 +338,59 @@ export const projectsList: Project[] = [
             ],
           },
         ],
+        flowImages: [{ src: '/project/attendance-expense/usecases.webp', title: 'ユースケース図' }],
       },
 
       wireframe: {
         images: [
           {
-            src: '/project/attendance-expense/wireframe-dashboard.png',
-            title: 'ダッシュボード',
-            description: '承認状況と主要アクションを集約した画面構成。',
+            src: '/project/attendance-expense/UIdoc-login.webp',
+            title: 'ログイン画面',
+            description:
+              'システムへのアクセスを認証する画面はロールで表示される機能が変わる。管理者は「管理者機能」が表示される。',
           },
           {
-            src: '/project/attendance-expense/wireframe-form.png',
-            title: '申請フォーム',
+            src: '/project/attendance-expense/UIdoc-top.webp',
+            title: 'トップ画面',
             description: '入力ミスを防ぐための情報配置と導線整理。',
           },
+          {
+            src: '/project/attendance-expense/UIdoc-attndance.webp',
+            title: '勤怠画面',
+            description: '当日の勤怠入力を行う画面。出退勤、休憩時間、休暇申請を入力できる。',
+          },
+          {
+            src: '/project/attendance-expense/UIdoc-admin.webp',
+            title: '管理者-勤怠経費管理画面',
+            description:
+              '選択月の勤怠経費管理画面。承認待ち、修正待ちのタスクが一目で分かり、迅速に修正依頼、書類出力対応できる。',
+          },
         ],
-        description: 'ダッシュボードと申請フォームのワイヤーフレーム',
+        description: '主要画面の画面設計書兼ワイヤーフレーム',
       },
 
       visualDesign: {
         images: [
           {
-            src: '/project/attendance-expense/visual-dashboard.png',
-            title: 'ダッシュボード',
-            description: 'タスク状況が一目で分かる情報整理。',
+            src: '/project/attendance-expense/design-top.webp',
+            title: 'ホーム',
+            description:
+              '主要遷移先とお知らせ・アラートを配置したホーム画面。画面の大きさはPC / スマホで異なる。',
           },
           {
-            src: '/project/attendance-expense/visual-attendance.png',
+            src: '/project/attendance-expense/design-attndance.webp',
             title: '勤怠管理',
-            description: '入力しやすさを意識したカレンダーUI。',
+            description: '当日の勤怠を行う画面。「出勤」「退勤」「退勤確認」の遷移画面',
           },
           {
-            src: '/project/attendance-expense/visual-expense.png',
+            src: '/project/attendance-expense/design-expenses.webp',
             title: '経費精算',
-            description: '申請フローを迷わず進める画面構成。',
+            description: '当月の経費登録を行う画面。',
+          },
+          {
+            src: '/project/attendance-expense/design-admin.webp',
+            title: '管理者-経費精算承認・修正画面',
+            description: '経費登録の承認・修正を行う画面。',
           },
         ],
         colorPalette: {
@@ -380,7 +398,8 @@ export const projectsList: Project[] = [
           accentColor: '#475569',
           other: ['#e5e7eb', '#dc2626', '#16a34a', '#936b00'],
         },
-        description: '直感的で業務効率を高める視覚設計',
+        description:
+          '直感的な操作を実現するため、主要動線をトップナビゲーションとサイドナビゲーションに配置した。文字のみでは判別しづらい要素にはアイコンを併記し、視認性と理解のしやすさを向上させた。関連性の高い項目はグルーピングし、カードUIで構造化することで、情報の優先度を明確にした。アクセシビリティについてはWCAG 2.1 AA基準に準拠し、テキストと背景のコントラスト比4.5:1以上を確保した配色設計を行った。',
       },
 
       uiComponents: {
@@ -388,9 +407,10 @@ export const projectsList: Project[] = [
           typography: ['見出し: 太字', '本文: レギュラー', '16px 基準スケール'],
         },
         sections: [
-          { title: 'Forms', images: ['/project/attendance-expense/components-forms.png'] },
-          { title: 'Status', images: ['/project/attendance-expense/components-status.png'] },
-          { title: 'Tables', images: ['/project/attendance-expense/components-tables.png'] },
+          { title: 'Button', images: ['/project/attendance-expense/button-components.webp'] },
+          { title: 'Card', images: ['/project/attendance-expense/card-components.webp'] },
+          { title: 'Toaster', images: ['/project/attendance-expense/toaster-components.webp'] },
+          { title: 'Tables', images: ['/project/attendance-expense/table-components.webp'] },
         ],
         description: '業務システム向けUIコンポーネント設計',
       },
@@ -416,7 +436,7 @@ export const projectsList: Project[] = [
   {
     // 基本情報
     id: 'publish-site-renewal',
-    title: '出版業界サーバーリプレイス、サイトリニューアル',
+    title: '出版業界サイトリニューアル',
     summary:
       '複数サーバーに分散していたWordPress環境の統合と、ユーザー体験に直結する共通領域を刷新した',
     period: '2023年8月 - 2024年4月',
@@ -438,14 +458,14 @@ export const projectsList: Project[] = [
         context:
           '出版業界公式サイトにおいて、サーバー老朽化に伴うリプレイスが必要となったことをきっかけに、サイト全体の管理基盤とUXの見直しが求められていた。当初は全面リニューアルを想定していたが、予算・工期の制約を踏まえ、「効果が最大化する領域に集中する」方針へ転換した。',
         userProblems: [
-          '6以上の複数のレーベルや膨大な書籍情報の中から、必要条件に合う本を探しづらい',
+          '6以上の複数のレーベルや膨大な書籍情報の中から、必要条件に合う書籍を探しづらい',
           'レーベルの新規追加を検討しているが、レーベルページのソースコードがブラックボックス化していて新規追加方法がわからない',
-          '申請・承認状況が把握しづらく、確認・督促のコミュニケーションコストが高い',
+          'トップページから各レーベルページへの導線がわかりづらい',
         ],
         existingIssues: [
           'WordPressが複数サーバーに分散し、保守・更新コストが肥大化',
-          '現行では書籍検索が存在しない、「タグ」「ジャンル」「著者名」などの検索や、複合条件検索ができない',
-          'コーポレート領域のデザインが硬く、ブランド表現が固定化',
+          '現行では書籍検索が存在しない、「タグ」「ジャンル」「著者名」などの詳細情報を管理したい',
+          'コーポレート領域のデザインが硬く、自社ブランド表現ができていないため、コーポレート領域のデザインを刷新したい',
           'ページ内で新レーベルの登録・編集・追加ができず、マルチサイト化してWordPressを複数管理する状態になり、管理が煩雑になっている。',
         ],
       },
@@ -478,7 +498,7 @@ export const projectsList: Project[] = [
         principles: [
           '「探す」から「辿り着ける」検索体験へ',
           '管理都合ではなく、ユーザー行動起点の導線設計',
-          'コーポレートの信頼感と、レーベルの個性を両立',
+          'コーポレートのイメージ刷新、レーベルの個性を両立',
         ],
         prioritization:
           '全面刷新ではなく、UXへの影響が最も大きい「検索・回遊・共通領域」に投資する戦略を採用。書籍詳細検索を体験の起点とし、その先で自然に作品世界へ没入できる導線を設計した。',
@@ -490,10 +510,22 @@ export const projectsList: Project[] = [
         screenStructure:
           '書籍を探したいユーザーが迷わず目的の作品に到達できるよう、「検索を起点とした画面構造」と「探索の選択肢を段階的に提示する情報設計」を行った。画面上部には常に検索窓を配置し、タイトル・著者名・レーベル・カテゴリといった複数の切り口から、ユーザーが思い立った瞬間に検索行動へ移れる構造とした。',
         flowDescription:
-          '書籍を探したいユーザーが、迷うことなく目的の作品に到達できるよう、検索を起点とした直線的かつ分岐可能なユーザーフロー」を設計した。',
+          '書籍を探したいユーザーが、迷うことなく目的の作品に到達できるよう、検索を起点とした直線的かつ分岐可能なユーザーフローを設計した。',
         flowImages: [
-          { src: '/project/publish-site/sitemap.png', title: 'サイトマップ' },
-          { src: '/project/publish-site/userflow.png', title: 'ユーザーフロー' },
+          {
+            src: '/project/publising/info-serach-flow.webp',
+            title: '検索を起点とした画面構造',
+          },
+          {
+            src: '/project/publising/info-wordoress-ux.webp',
+            title:
+              '情報構造の整理（WordPress運用設計）\nWordPress上では、書籍情報としてタイトル／著者／イラストレーター／レーベルのみが個別に登録されており、「情報が検索項目ベースで整理されていない」「検索情報が足りていない」といった問題を抱えており、そのままでは検索性・再利用性が低い状態となっていた。本プロジェクトでは、これらの登録項目を「検索軸」「分類軸」「表示用情報」に整理し直し、書籍データを一貫した構造で管理できるよう再設計を行った。',
+          },
+          {
+            src: '/project/publising/info-wordoress-input.webp',
+            title:
+              '情報構造の整理（WordPress運用設計）\n現場スタッフが迷わず情報を入力できるよう、フロント画面での検索・回遊体験と管理側のデータ登録・更新が乖離しない情報設計を行った。あわせて、運用フェーズで「タグ」「レーベル」などの検索項目を柔軟に追加できる構造とし、新たなカテゴリやレーベルが発生した場合でも、都度開発を伴わずに管理画面上で対応できる設計とした。これにより、ユーザー体験を損なうことなく、運用コストを抑えながら情報拡張が可能な、持続性のある構造を実現している。',
+          },
         ],
       },
 
@@ -511,45 +543,63 @@ export const projectsList: Project[] = [
             title: '管理画面から「書籍」を選択',
             steps: [
               '管理画面から「書籍」を選択',
-              '社員名から「勤怠経費」を選択し、「提出済み」の勤怠経費を確認',
-              '修正が必要な場合、勤怠経費（詳細）から「修正待ち」のステータスに変更',
+              'サムネイル画像・書籍内容・レーベル・タイトルなど書籍情報を入力し「新規書籍を登録」を選択',
+              '修正が必要な場合、書籍情報から修正し、「更新」を選択',
             ],
           },
         ],
+        flowImages: [{ src: '/project/publising/info-usecases.webp', title: 'ユースケース図' }],
       },
 
       wireframe: {
         images: [
           {
-            src: '/project/publish-site/wireframe-search.png',
-            title: '検索ページ',
+            src: '/project/publising/wireframe-top.webp',
+            title: 'トップページ',
             description: '複数条件で探しやすい検索UIの構成。',
           },
           {
-            src: '/project/publish-site/wireframe-detail.png',
-            title: '書籍詳細ページ',
+            src: '/project/publising/wireframe-search.webp',
+            title: '検索結果ページ',
+            description: '検索結果内で他の書籍を見つけやすいようフィルターを配置。',
+          },
+          {
+            src: '/project/publising/wireframe-genre.webp',
+            title: 'ジャンル一覧ページ',
+            description: 'ジャンルの追加で範囲が拡張されることを前提に設計',
+          },
+          {
+            src: '/project/publising/wireframe-contact.webp',
+            title: 'お問合せページ',
             description: '関連導線と情報優先度を整理した詳細画面。',
           },
         ],
-        description: '検索ページと書籍詳細ページのワイヤーフレーム',
+        description: 'レーベル追加によるお問合せ・アンケート内容の拡張を想定した設計',
       },
 
       visualDesign: {
         images: [
           {
-            src: '/project/publish-site/visual-top.png',
+            src: '/project/publising/design-top.webp',
             title: 'トップページ',
-            description: '検索起点で回遊できるヒーロー設計。',
+            description:
+              'ブランドカラーをセクションタイトルや下部背景に配置し、ブランドイメージを印象つける設計。',
           },
           {
-            src: '/project/publish-site/visual-search.png',
-            title: '検索ページ',
-            description: '条件選択と結果の見やすさを両立。',
+            src: '/project/publising/design-search.webp',
+            title: '検索結果ページ',
+            description: '検索書籍がわかりやすいよう、サムネ・タイトル・タグ・著者名を配置。',
           },
           {
-            src: '/project/publish-site/visual-label.png',
-            title: 'レーベルページ',
-            description: '世界観を保ちながら情報を整理。',
+            src: '/project/publising/design-genre.webp',
+            title: 'ジャンル一覧ページ',
+            description: '余計な装飾を削除し、ジャンル名が一目でわかるようにした。',
+          },
+          {
+            src: '/project/publising/design-contact.webp',
+            title: 'お問合せページ',
+            description:
+              '複数レーベル・会社・アンケートが追加されても一目で見分けがつくようアイコンとタイトルを配置。',
           },
         ],
         colorPalette: {
@@ -565,9 +615,10 @@ export const projectsList: Project[] = [
           typography: ['見出し: 太字', '本文: レギュラー', '16px 基準スケール'],
         },
         sections: [
-          { title: 'Search', images: ['/project/publish-site/components-search.png'] },
-          { title: 'Cards', images: ['/project/publish-site/components-cards.png'] },
-          { title: 'Navigation', images: ['/project/publish-site/components-nav.png'] },
+          { title: 'Button', images: ['/project/publising/button-component.webp'] },
+          { title: 'Cards', images: ['/project/publising/card-component.webp'] },
+          { title: 'Tables', images: ['/project/publising/table-component.webp'] },
+          { title: 'Forms', images: ['/project/publising/form-component.webp'] },
         ],
         description: '出版サイト向けUIコンポーネント設計',
       },
@@ -581,7 +632,7 @@ export const projectsList: Project[] = [
         ],
         learnings: [
           '業務ドメインを深く理解したUI設計が、現場負荷の削減に直結することを実感',
-          'バリデーションやフィードバック設計が、運用コストを大きく左右する',
+          'バリデーションや拡張性を考慮した設計が、運用コストを大きく左右する',
           '将来の拡張（タグ・レーベル追加）を前提とした設計により、開発コストを抑えながら長期運用に耐える基盤を構築できた。',
         ],
       },

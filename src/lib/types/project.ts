@@ -66,6 +66,10 @@ export interface Project {
         title: string;
         steps: string[];
       }>;
+      flowImages?: Array<{
+        src: string;
+        title: string;
+      }>;
     };
 
     // Wireframe
