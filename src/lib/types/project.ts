@@ -50,8 +50,14 @@ export interface Project {
     infoArchitecture: {
       screenStructure: string;
       flowDescription: string;
-      screenStructureImages?: string[]; // 画面構造図など
-      flowImages?: string[]; // サイトマップ、画面遷移図など
+      screenStructureImages?: Array<{
+        src: string;
+        title: string;
+      }>; // 画面構造図など
+      flowImages?: Array<{
+        src: string;
+        title: string;
+      }>; // サイトマップ、画面遷移図など
     };
 
     // Use Cases / User Flow
@@ -101,6 +107,7 @@ export interface Project {
 
     // Outcome
     outcome: {
+      sectionTitles: string[];
       results: string[];
       learnings: string[];
     };

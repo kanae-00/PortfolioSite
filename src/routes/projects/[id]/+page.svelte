@@ -68,6 +68,11 @@
     description: string;
   };
   let activeVisualDesignImage: VisualDesignImage | null = null;
+  type InfoArchitectureImage = {
+    src: string;
+    title: string;
+  };
+  let activeInfoArchitectureImage: InfoArchitectureImage | null = null;
   const visualDesign = project.detail.visualDesign;
   const visualDesignImages = visualDesign?.images ?? [];
   const mainVisualDesignImage = visualDesignImages[0];
@@ -105,10 +110,24 @@
     activeVisualDesignImage = null;
   };
 
+  const openInfoArchitectureModal = (image: InfoArchitectureImage) => {
+    activeInfoArchitectureImage = image;
+    activeWireframeImage = null;
+    activeVisualDesignImage = null;
+  };
+
+  const closeInfoArchitectureModal = () => {
+    activeInfoArchitectureImage = null;
+  };
+
   const handleModalKeydown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape' && (activeWireframeImage || activeVisualDesignImage)) {
+    if (
+      event.key === 'Escape' &&
+      (activeWireframeImage || activeVisualDesignImage || activeInfoArchitectureImage)
+    ) {
       closeWireframeModal();
       closeVisualDesignModal();
+      closeInfoArchitectureModal();
     }
   };
 </script>
@@ -125,10 +144,11 @@
   <div class="w-full px-4 pt-6 sm:px-10 sm:pt-8 lg:px-20 lg:pt-10">
     <a
       href="/"
-      class="font-body text-sm text-brand-green hover:underline sm:text-base"
+      class="group inline-flex items-center gap-1 font-body text-sm text-brand-green pb-1 sm:text-base no-underline hover:no-underline"
       data-sveltekit-preload-data="hover"
     >
-      ← TOP に戻る
+      <span class="transition-transform duration-200 group-hover:-translate-x-1">←</span>
+      <span class="underline">TOP に戻る</span>
     </a>
   </div>
 
@@ -360,7 +380,24 @@
           {#if project.detail.infoArchitecture.screenStructureImages?.length}
             <div class="flex flex-col gap-4">
               {#each project.detail.infoArchitecture.screenStructureImages as img, index (index)}
-                <img src={img} alt="Info Architecture" class="w-full max-h-fit" />
+                <div
+                  class="flex flex-col gap-2 rounded-lg border border-border-primary bg-surface-base p-4"
+                >
+                  <p class="font-body text-sm font-medium text-text-primary">{img.title}</p>
+                  <button
+                    type="button"
+                    class="group relative overflow-hidden rounded-lg border border-border-primary bg-white"
+                    aria-label={`Open info architecture: ${img.title}`}
+                    onclick={() => openInfoArchitectureModal(img)}
+                  >
+                    <img src={img.src} alt={img.title} class="h-auto w-full" />
+                    <span
+                      class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/40 font-body text-sm text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                    >
+                      拡大表示
+                    </span>
+                  </button>
+                </div>
               {/each}
             </div>
           {/if}
@@ -370,13 +407,26 @@
           {project.detail.infoArchitecture.flowDescription}
         </p>
         {#if project.detail.infoArchitecture.flowImages?.length}
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {#each project.detail.infoArchitecture.flowImages as img, index (index)}
-              <img
-                src={img}
-                alt="Info Architecture"
-                class="w-full rounded-lg border border-border-primary"
-              />
+              <div
+                class="flex flex-col gap-2 rounded-lg border border-border-primary bg-surface-base p-4"
+              >
+                <p class="font-body text-sm font-medium text-text-primary">{img.title}</p>
+                <button
+                  type="button"
+                  class="group relative overflow-hidden rounded-lg border border-border-primary bg-white"
+                  aria-label={`Open info architecture: ${img.title}`}
+                  onclick={() => openInfoArchitectureModal(img)}
+                >
+                  <img src={img.src} alt={img.title} class="h-auto w-full" />
+                  <span
+                    class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/40 font-body text-sm text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                  >
+                    拡大表示
+                  </span>
+                </button>
+              </div>
             {/each}
           </div>
         {/if}
@@ -436,7 +486,7 @@
                     <img
                       src={img.src}
                       alt={img.title}
-                      class="h-full w-full object-cover object-top-left transition-transform duration-200 group-hover:scale-110"
+                      class="h-full w-full object-cover object-top-left transition-transform duration-200 group-hover:scale-105"
                     />
                     <span
                       class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/40 font-body text-sm text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
@@ -483,7 +533,7 @@
                   <img
                     src={mainVisualDesignImage.src}
                     alt={mainVisualDesignImage.title}
-                    class="h-auto w-full transition-transform duration-200 bg-cover bg-center group-hover:scale-[1.01]"
+                    class="h-auto w-full transition-transform duration-200 bg-cover bg-center group-hover:scale-105"
                   />
                   <span
                     class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/40 font-body text-sm text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
@@ -510,7 +560,7 @@
                         <img
                           src={img.src}
                           alt={img.title}
-                          class="h-full w-full object-cover object-center transition-transform duration-200 group-hover:scale-[1.02]"
+                          class="h-full w-full object-cover object-center transition-transform duration-200 group-hover:scale-105"
                         />
                         <span
                           class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/40 font-body text-sm text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
@@ -686,7 +736,9 @@
         </h2>
 
         <div class="flex flex-col gap-3">
-          <h3 class="font-body text-base font-medium text-text-primary">成果</h3>
+          <h3 class="font-body text-base font-medium text-text-primary">
+            {project.detail.outcome.sectionTitles?.[0] ?? '成果'}
+          </h3>
           <ul class="flex flex-col gap-4">
             {#each project.detail.outcome.results as result, index (index)}
               <li class="flex items-start gap-3">
@@ -699,7 +751,9 @@
           </ul>
         </div>
 
-        <h3 class="font-body text-base font-medium text-text-primary">学びと改善点</h3>
+        <h3 class="font-body text-base font-medium text-text-primary">
+          {project.detail.outcome.sectionTitles?.[1] ?? '学びと改善点'}
+        </h3>
         <div
           class="flex flex-col gap-4 rounded-xl border border-border-primary bg-surface-base p-4"
         >
@@ -740,10 +794,11 @@
     <div class="mx-auto max-w-[1200px]">
       <a
         href="/"
-        class="font-body text-sm text-brand-green hover:underline sm:text-base"
+        class="group inline-flex items-center gap-1 font-body text-sm text-brand-green pb-1 sm:text-base no-underline hover:no-underline"
         data-sveltekit-preload-data="hover"
       >
-        ← TOP に戻る
+        <span class="transition-transform duration-200 group-hover:-translate-x-1">←</span>
+        <span class="underline">TOP に戻る</span>
       </a>
     </div>
   </div>
@@ -829,6 +884,45 @@
           <img
             src={activeVisualDesignImage.src}
             alt={activeVisualDesignImage.title}
+            class="h-auto w-full"
+          />
+        </div>
+      </div>
+    </div>
+  {/if}
+
+  {#if activeInfoArchitectureImage}
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+      <button
+        type="button"
+        class="absolute inset-0"
+        aria-label="Close modal"
+        onclick={closeInfoArchitectureModal}
+      ></button>
+      <div
+        class="relative z-10 w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-4 shadow-lg sm:p-6"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Info architecture preview"
+        tabindex="-1"
+      >
+        <div class="flex items-start justify-between gap-4">
+          <h3 class="font-body text-lg font-medium text-text-primary">
+            {activeInfoArchitectureImage.title}
+          </h3>
+          <button
+            type="button"
+            class="rounded-md border border-border-primary px-3 py-1 text-sm text-text-muted hover:text-text-primary"
+            aria-label="Close modal"
+            onclick={closeInfoArchitectureModal}
+          >
+            Close
+          </button>
+        </div>
+        <div class="mt-4 overflow-hidden rounded-lg border border-border-primary bg-surface-base">
+          <img
+            src={activeInfoArchitectureImage.src}
+            alt={activeInfoArchitectureImage.title}
             class="h-auto w-full"
           />
         </div>
