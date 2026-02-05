@@ -1,16 +1,36 @@
 <script lang="ts">
-  import { projects } from '$lib/utils/projects';
+  import { projectsList } from '$lib/utils/projects';
   import { aboutCards } from '$lib/utils/aboutCards';
   import CalendarIcon from '$lib/component/icon/CalendarIcon.svelte';
   import type { AboutCard } from '$lib/types/about';
-  import type { Project } from '$lib/types/project';
-
-  const projectsList: Project[] = projects;
 
   let activeAboutIndex = 0;
   const aboutTotal = aboutCards.length;
 
   $: activeAboutCard = aboutCards[activeAboutIndex] as AboutCard;
+
+  const filterOptions = [
+    'UI/UX / Frontend',
+    'UI/UX / Frontend / PM',
+    'WEBシステム',
+    '業務システム',
+  ];
+  let activeFilters: string[] = [];
+
+  const toggleFilter = (label: string) => {
+    activeFilters = activeFilters.includes(label)
+      ? activeFilters.filter((item) => item !== label)
+      : [...activeFilters, label];
+  };
+
+  $: filteredProjects =
+    activeFilters.length === 0
+      ? projectsList
+      : projectsList.filter(
+          (project) =>
+            activeFilters.includes(project.categoryPrimary) ||
+            activeFilters.includes(project.categorySecondary),
+        );
 
   const updateAboutIndex = (nextIndex: number) => {
     activeAboutIndex = (nextIndex + aboutTotal) % aboutTotal;
@@ -181,45 +201,41 @@
 
       <!-- Filter -->
       <div
-        class="flex w-full flex-col items-start justify-start gap-4 rounded-lg border border-border-primary bg-white px-4 py-4 sm:px-6 sm:pt-[22px] sm:pb-1"
+        class="flex w-full flex-col items-start justify-start gap-4 rounded-lg border border-border-primary bg-white px-4 py-6 h-fit"
       >
         <div class="flex w-full items-center gap-3 border-b border-border-primary pb-2">
           <span class="font-body text-sm font-medium leading-5 text-text-primary sm:text-[14px]"
             >Filter</span
           >
-          <span class="font-body text-sm leading-5 text-brand-green sm:text-[14px]">3 projects</span
+          <span class="font-body text-sm leading-5 text-brand-green sm:text-[14px]"
+            >{filteredProjects.length} projects</span
           >
         </div>
         <div class="flex flex-wrap gap-2">
-          <span
-            class="inline-flex h-9 items-center rounded-md border border-border-primary bg-white px-3 py-2 text-center font-body text-sm font-medium leading-5 text-brand-green"
-          >
-            UI/UX / Frontend
-          </span>
-          <span
-            class="inline-flex h-9 items-center rounded-md border border-border-primary bg-white px-3 py-2 text-center font-body text-sm font-medium leading-5 text-brand-green"
-          >
-            UI/UX / Frontend / PM
-          </span>
-          <span
-            class="inline-flex h-9 items-center rounded-md border border-border-primary bg-white px-3 py-2 text-center font-body text-sm font-medium leading-5 text-brand-green"
-          >
-            WEBシステム
-          </span>
-          <span
-            class="inline-flex h-9 items-center rounded-md border border-border-primary bg-white px-3 py-2 text-center font-body text-sm font-medium leading-5 text-brand-green"
-          >
-            業務システム
-          </span>
+          {#each filterOptions as option (option)}
+            <button
+              type="button"
+              aria-pressed={activeFilters.includes(option)}
+              class={`inline-flex h-9 items-center rounded-md border px-4 py-4 text-center font-body text-sm font-medium leading-5 transition-colors ${
+                activeFilters.includes(option)
+                  ? 'border-brand-green bg-brand-green text-white'
+                  : 'border-border-primary bg-white text-brand-green'
+              }`}
+              onclick={() => toggleFilter(option)}
+            >
+              {option}
+            </button>
+          {/each}
         </div>
       </div>
 
       <!-- Project cards -->
       <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {#each projectsList as project (project.id)}
+        {#each filteredProjects as project (project.id)}
           <a
             href="/projects/{project.id}"
-            class="projectcard flex flex-col overflow-hidden rounded-2xl border border-border-primary bg-white transition-opacity hover:opacity-90"
+            class="flex flex-col overflow-hidden group rounded-2xl border border-border-primary bg-white no-underline hover:no-underline focus-visible:no-underline transition-opacity hover:opacity-90"
+            data-sveltekit-preload-data="hover"
           >
             <div
               class="relative aspect-[303/240] w-full overflow-hidden rounded-t-2xl bg-[#697065]"
@@ -227,18 +243,18 @@
               <img
                 src={project.image}
                 alt={project.title}
-                class="h-full w-full object-cover"
+                class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-200"
                 loading="lazy"
               />
             </div>
             <div class="flex flex-col gap-2 p-4">
               <h3
-                class="font-body text-lg font-medium leading-snug tracking-[0.35px] text-text-primary sm:text-[20px] sm:leading-[35px]"
+                class="font-body text-lg font-medium leading-snug tracking-[0.35px] text-text-primary sm:text-[20px] sm:leading-[35px] truncate"
               >
                 {project.title}
               </h3>
               <p
-                class="font-body text-sm leading-relaxed tracking-[0.41px] text-text-muted sm:text-[14px] sm:leading-[24.5px] truncate"
+                class="font-body text-sm leading-relaxed tracking-[0.41px] text-text-muted sm:text-[14px] sm:leading-[24.5px] h-[80px] overflow-hidden"
               >
                 {project.summary}
               </p>

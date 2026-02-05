@@ -13,4 +13,3 @@
     <slot />
   </main>
 </div>
-
