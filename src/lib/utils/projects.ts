@@ -127,8 +127,9 @@ export const projectsList: Project[] = [
         images: [
           {
             src: '/project/real-estate/PIM-hero.webp',
-            title: 'トップページ ヒーロー',
-            description: 'ファーストビューの構成と主要導線を整理したワイヤーフレーム。',
+            title: 'トップページ',
+            description:
+              'ブランドイメージを重視し、ファーストビューと、主要導線を目立つ位置に配置。',
           },
           {
             src: '/project/real-estate/PIM-global-menu.webp',
@@ -137,13 +138,15 @@ export const projectsList: Project[] = [
           },
           {
             src: '/project/real-estate/PIM-news.webp',
-            title: '重要なお知らせエリア',
-            description: '通知の優先度が伝わる情報配置のワイヤーフレーム。',
+            title: 'お知らせエリア',
+            description:
+              '新着のお知らせを訴求する動線を設置。ユーザーが見たい情報を選択できるようカテゴリを表記。',
           },
           {
             src: '/project/real-estate/PIM-real-estate-section.webp',
             title: 'サービス導線セクション',
-            description: '利用目的別の導線が分かるカード配置を検討。',
+            description:
+              '利用目的別の導線が分かるカード配置。ユーザーが迷わないようにするための構成。',
           },
         ],
         description: 'トップページと主要サービスページのワイヤーフレーム',
