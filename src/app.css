@@ -14,3 +14,12 @@ body {
 a {
   @apply text-brand-green underline-offset-4 hover:underline;
 }
+
+@keyframes page-anime-fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
