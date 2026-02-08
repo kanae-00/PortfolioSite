@@ -620,7 +620,7 @@ export const projectsList: Project[] = [
         sections: [
           { title: 'Button', images: ['/project/publising/button-component.webp'] },
           { title: 'Cards', images: ['/project/publising/card-component.webp'] },
-          { title: 'Tables', images: ['/project/publising/table-component.webp'] },
+          { title: 'List Item', images: ['/project/publising/table-component.webp'] },
           { title: 'Forms', images: ['/project/publising/form-component.webp'] },
         ],
         description: '出版サイト向けUIコンポーネント設計',
