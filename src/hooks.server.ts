@@ -2,9 +2,15 @@ import type { Handle } from '@sveltejs/kit';
 
 const BASIC_AUTH_USER = process.env.BASIC_AUTH_USER ?? '';
 const BASIC_AUTH_PASSWORD = process.env.BASIC_AUTH_PASSWORD ?? '';
+const AUTH_COOKIE = 'portfolio_auth';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	if (!BASIC_AUTH_USER || !BASIC_AUTH_PASSWORD) {
+		return resolve(event);
+	}
+
+	// セッションCookieが有効ならそのまま通す（SvelteKitのクライアントナビゲーション対応）
+	if (event.cookies.get(AUTH_COOKIE) === '1') {
 		return resolve(event);
 	}
 
@@ -13,11 +19,25 @@ export const handle: Handle = async ({ event, resolve }) => {
 	if (authorization) {
 		const [scheme, encoded] = authorization.split(' ');
 		if (scheme === 'Basic' && encoded) {
-			const decoded = atob(encoded);
-			const [user, ...passwordParts] = decoded.split(':');
-			const password = passwordParts.join(':');
-			if (user === BASIC_AUTH_USER && password === BASIC_AUTH_PASSWORD) {
-				return resolve(event);
+			try {
+				const decoded = atob(encoded);
+				const colonIndex = decoded.indexOf(':');
+				if (colonIndex > -1) {
+					const user = decoded.slice(0, colonIndex);
+					const password = decoded.slice(colonIndex + 1);
+					if (user === BASIC_AUTH_USER && password === BASIC_AUTH_PASSWORD) {
+						event.cookies.set(AUTH_COOKIE, '1', {
+							path: '/',
+							httpOnly: true,
+							sameSite: 'lax',
+							maxAge: 60 * 60 * 24,
+							secure: event.url.protocol === 'https:'
+						});
+						return resolve(event);
+					}
+				}
+			} catch {
+				// base64デコード失敗 → 401へフォールスルー
 			}
 		}
 	}
