@@ -69,12 +69,12 @@
           <p
             class="font-jp text-sm leading-relaxed tracking-wide text-text-primary sm:text-base sm:leading-[27.2px] sm:tracking-[0.64px]"
           >
-            叶 真衣 | かなえ まい
+            M K
           </p>
           <p
             class="font-jp text-xs leading-relaxed tracking-wide text-brand-green sm:text-sm sm:leading-[23.8px] sm:tracking-[0.56px]"
           >
-            Design Engineer
+            UI/UX Designer | Frontend Developer
           </p>
         </div>
       </div>
