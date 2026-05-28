@@ -17,6 +17,7 @@ dist/
 .vscode/
 !.vscode/extensions.json
 .idea/
+.claude/
 
 # OS
 .DS_Store
