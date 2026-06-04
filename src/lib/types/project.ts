@@ -22,6 +22,11 @@ export interface Project {
       role: string;
       timeline: string;
       team: string;
+      // 概要セクションに表示するコンセプト画像（任意）
+      conceptImage?: {
+        src: string;
+        alt: string;
+      };
     };
 
     // Background & Issues
